@@ -2,6 +2,13 @@
   // launchtype项可配置值为local或remote, local代表前端连本地云函数，remote代表前端连云端云函数
     "version": "0.0",
     "configurations": [{
+<<<<<<< HEAD
+=======
+     	"app-plus" : 
+     	{
+     		"launchtype" : "local"
+     	},
+>>>>>>> 9de6fc9... 首页搜索页和发布页
      	"default" : 
      	{
      		"launchtype" : "local"

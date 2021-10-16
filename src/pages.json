@@ -1,7 +1,36 @@
 {
-  "pages": [
+  "pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
     {
-      "path": "pages/home/home",
+      "path": "pages/index/index",
+      "style": {
+        "app-plus": {
+          // 导航栏配置
+          "titleNView": {
+            // 搜索框配置
+            "searchInput": {
+              "align": "center",
+              "backgroundColor": "#F5F4F2",
+              "borderRadius": "4px",
+              "disabled": true,
+              "placeholder": "搜索帖子",
+              "placeholderColor": "#6D6C67"
+            },
+            "buttons": [
+              {
+                "color": "#333333",
+                "colorPressed": "#FD597C",
+                "float": "right",
+                "fontSize": "14px",
+                "fontSrc": "/static/iconfont.ttf",
+                "text": "\ue668"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "path": "pages/msg/msg",
       "style": {}
     },
     {
@@ -9,28 +38,67 @@
       "style": {}
     },
     {
-      "path": "pages/msg/msg",
+      "path": "pages/profile/profile",
       "style": {}
     },
     {
-      "path": "pages/profile/profile",
+      "path": "pages/demo/demo",
       "style": {}
+    },
+    {
+      "path": "pages/search/search",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false,
+        "app-plus": {
+          // 导航栏配置
+          "titleNView": {
+            // 搜索框配置
+            "searchInput": {
+              "align": "center",
+              "backgroundColor": "#F5F4F2",
+              "borderRadius": "4px",
+              // "disabled":true,
+              "placeholder": "搜索帖子",
+              "placeholderColor": "#6D6C67"
+            },
+            "buttons": [
+              {
+                "color": "#333333",
+                "colorPressed": "#FD597C",
+                "float": "right",
+                "fontSize": "14px",
+                // "fontSrc":"/static/iconfont.ttf",
+                "text": "搜索"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "path": "pages/add-input/add-input",
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
     }
   ],
   "globalStyle": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "社区交友",
-    "navigationBarBackgroundColor": "#fff",
-    "backgroundColor": "#F8F8F8"
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#FFFFFF"
   },
-  "tabbar": {
-    "color": "#323232",
-    "selectedColor": "#ED6384",
+  "tabBar": {
+    "color": "#333333",
+    "selectedColor": "#FC5C82",
     "backgroundColor": "#FFFFFF",
     "borderStyle": "black",
     "list": [
       {
-        "pagePath": "pages/home/home",
+        "pagePath": "pages/index/index",
         "text": "首页",
         "iconPath": "static/tabbar/index.png",
         "selectedIconPath": "static/tabbar/indexed.png"
@@ -39,7 +107,7 @@
         "pagePath": "pages/news/news",
         "text": "动态",
         "iconPath": "static/tabbar/news.png",
-        "selectedIconPath": "static/tabbar/news.png"
+        "selectedIconPath": "static/tabbar/newsed.png"
       },
       {
         "pagePath": "pages/msg/msg",
