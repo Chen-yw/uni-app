@@ -38,9 +38,7 @@
 					<template v-if="item.list.length">
 						<!-- 列表 -->
 						<block v-for="(itemy, indey) in item.list" :key="indey">
-							<commonList :item="itemy" :index="index" :indey="indey" @follow="follow" @doSupport="doSupport"/>
-							<!-- 全局分割线 -->
-							<divider/>
+							<topicList :item="itemy" :indey="indey"/>
 						</block>
 						<!-- 上拉加载 -->
 						<load-more :loadmore="item.loadmore"/>
@@ -52,87 +50,46 @@
 				</scroll-view>
 			</swiper-item>
 		</swiper>
-		
-		
-		
-		<!-- ======= 2，动画使用方式一：点击效果 ======= -->
-		<!-- <view style="display: flex;justify-content: center;padding: 50rpx;">
-			<view class="animated faster " hover-class="rubberBand"
-			style="border: 1rpx solid #333333;padding: 20rpx;">
-				点击效果
-			</view>
-		</view> -->
-		<!-- 动画使用方式二：v-if -->
-		<!-- 动画使用方式三：列表渲染 -->
-		
-		<!-- ======== 1，图标演示 ========== -->
-		<!-- <text class="iconfont icon-smile" style="font-size: 100rpx;color: red;"></text> -->
-
 	</view>
 </template>
 
 <script>
 	const demo = [{
-		username: "你是我的小宝贝",
-		userpic: "/static/default.jpg",
-		newstime: "2019-10-20 下午04:30",
-		isFollow: false,
-		title: "我是标题，啦啦啦啦",
-		titlepic: "/static/demo/datapic/11.jpg",
-		support: {
-			type: "support", // 顶
-			support_count: 1,
-			unsupport_count: 2,
-		},
-		comment_count: 2,
-		share_num: 2
-	},
-	{
-		username: "你是我的小宝贝",
-		userpic: "/static/default.jpg",
-		newstime: "2019-10-20 下午04:30",
-		isFollow: false,
-		title: "我是标题，啦啦啦啦",
-		titlepic: "",
-		support: {
-			type: "unsupport", //踩
-			support_count: 1,
-			unsupport_count: 2,
-		},
-		comment_count: 2,
-		share_num: 2
-	},
-	{
-		username: "你是我的小宝贝",
-		userpic: "/static/default.jpg",
-		newstime: "2019-10-20 下午04:30",
-		isFollow: false,
-		title: "我是标题，啦啦啦啦",
-		titlepic: "/static/demo/datapic/11.jpg",
-		support: {
-			type: "", // 未操作
-			support_count: 1,
-			unsupport_count: 2,
-		},
-		comment_count: 2,
-		share_num: 2
-	},
-	{
-		username: "你是我的小宝贝",
-		userpic: "/static/default.jpg",
-		newstime: "2019-10-20 下午04:30",
-		isFollow: false,
-		title: "我是标题，啦啦啦啦",
-		titlepic: "/static/demo/datapic/11.jpg",
-		support: {
-			type: "support",
-			support_count: 1,
-			unsupport_count: 2,
-		},
-		comment_count: 2,
-		share_num: 2
-	}];
-	import commonList from "@/components/common/common-list.vue"
+						cover: '/static/demo/topicpic/1.jpeg',
+						title: '话题名称',
+						desc: '话题描述',
+						today_count: 0,
+						news_count: 10
+					},
+					{
+						cover: '/static/demo/topicpic/1.jpeg',
+						title: '#话题名称#',
+						desc: '话题描述',
+						today_count: 0,
+						news_count: 10
+					},
+					{
+						cover: '/static/demo/topicpic/1.jpeg',
+						title: '#话题名称#',
+						desc: '话题描述',
+						today_count: 0,
+						news_count: 10
+					},
+					{
+						cover: '/static/demo/topicpic/1.jpeg',
+						title: '#话题名称#',
+						desc: '话题描述',
+						today_count: 0,
+						news_count: 10
+					},
+					{
+						cover: '/static/demo/topicpic/1.jpeg',
+						title: '#话题名称#',
+						desc: '话题描述',
+						today_count: 0,
+						news_count: 10
+					}]
+	import topicList from "@/components/news/topic-list.vue"
 	import loadMore from '@/components/common/load-more.vue'
 	
 	export default {
@@ -175,13 +132,13 @@
 			}
 		},
 		components: {
-			commonList,
+			topicList,
 			loadMore,
 		},
 		// 监听点击导航栏搜索框
 		onNavigationBarSearchInputClicked() {
 			uni.navigateTo({
-				url: '../search/search?type=post'
+				url: '../search/search'
 			})
 		},
 		// 监听导航按钮的点击事件
@@ -292,3 +249,4 @@
 </script>
 
 <style></style>
+

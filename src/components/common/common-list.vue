@@ -1,5 +1,5 @@
 <template>
-	<view class="p-2">
+	<view class="p-2" @click="openDetail">
 		<!-- 头像昵称 | 关注按钮 -->
 		<view class="flex justify-between">
 			<view class="flex align-center">
@@ -35,7 +35,7 @@
 				class="flex justify-center align-center rounded bg-main text-white animated faster"
 				hover-class="rubberBand"
 				style="width: 90rpx;height: 50rpx;"
-				@click="follow"
+				@click.stop="follow"
 			>
 				关注
 			</view>
@@ -43,15 +43,17 @@
 		
 		<!-- 标题 -->
 		<view class="font" style="margin: 10rpx 0;">{{ item.title }}</view>
-		
-		<!-- 图片 -->
-		<image 
-			v-if="item.titlepic"
-			class="rounded w-100" 
-			:src="item.titlepic" 
-			style="height: 350rpx;" 
-			mode=""
-		/>
+		<!-- 帖子详情 -->
+		<slot>
+			<!-- 图片 -->
+			<image 
+				v-if="item.titlepic"
+				class="rounded w-100" 
+				:src="item.titlepic" 
+				style="height: 350rpx;" 
+				mode=""
+			/>
+		</slot>
 		
 		<!-- 图表按钮 -->
 		<view class="flex align-center">
@@ -59,7 +61,7 @@
 			<view 
 				class="flex justify-center align-center flex-1 animated" 
 				hover-class="jello text-main"
-				@click="doSupport('support')"
+				@click.stop="doSupport('support')"
 				:class="item.support.type === 'support' ? 'support-active' : '' "
 			>
 				<text class="iconfont icon-dianzan2 mr-2"></text>
@@ -69,7 +71,7 @@
 			<view 
 				class="flex justify-center align-center flex-1 animated" 
 				hover-class="jello text-main"
-				@click="doSupport('unsupport')"
+				@click.stop="doSupport('unsupport')"
 				:class="item.support.type === 'unsupport' ? 'support-active' : '' "
 			>
 				<text class="iconfont icon-cai mr-2"></text>
@@ -79,7 +81,7 @@
 			<view 
 				class="flex justify-center align-center flex-1 animated" 
 				hover-class="jello text-main"
-				@click="openDetail"
+				@click="doComment"
 			>
 				<text class="iconfont icon-pinglun2 mr-2"></text>
 				<text>{{ item.comment_count > 0 ? item.comment_count : '评论' }}</text>
@@ -88,7 +90,7 @@
 			<view 
 				class="flex justify-center align-center flex-1 animated" 
 				hover-class="jello text-main"
-				@click="openDetail"
+				@click="doShare"
 			>
 				<text class="iconfont icon-fenxiang mr-2"></text>
 				<text>{{ item.share_num > 0 ? item.share_num : "分享" }}</text>
@@ -104,8 +106,18 @@
 		},
 		props: {
 			item: Object,
-			index: Number,
-			indey: Number
+			index: {
+				type: Number,
+				default: -1
+			},
+			indey: {
+				type: Number,
+				default: -1
+			},
+			isdetail: {
+				type: Boolean,
+				default: false
+			}
 		},
 		methods: {
 			// 打开个人空间
@@ -115,7 +127,6 @@
 			
 			// 关注
 			follow() {
-				console.log('关注');
 				console.log(!this.item.isFollow);
 				// 通知父组件
 				this.$emit('follow', {index: this.index, indey: this.indey});
@@ -123,14 +134,32 @@
 			
 			// 进入详情页
 			openDetail() {
-				console.log("进入详情页");
-			
+				// 处于详情页中
+				if (this.isdetail) return;
+				uni.navigateTo({
+					url: '../../pages/detail/detail?detail=' + JSON.stringify(this.item),
+				});
 			},
 			
 			// 顶踩操作
 			doSupport(type) {
 				// 通知父组件
 				this.$emit('doSupport', {type: type, index: this.index, indey: this.indey});
+			},
+			
+			// 评论
+			doComment() {
+				if (!this.isdetail) {
+					return this.openDetail();
+				}
+				this.$emit('doComment');
+			},
+			// 分享
+			doShare() {
+				if (!this.isdetail) {
+					return this.openDetail();
+				}
+				this.$emit('doShare');
 			},
 		}
 	}

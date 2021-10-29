@@ -7,9 +7,7 @@
 <script>
 	export default {
 		props: ['loadmore'],
-		methods: {
-			
-		}
+		methods: {}
 	}
 </script>
 
