@@ -1,6 +1,6 @@
 <template>
 	<view 
-		class="flex align-center p-2 border-bottom border-light-secondary" 
+		class="flex align-center p-2 border-bottom border-light-secondary animated fast fadeIn" 
 		hover-class="bg-light"
 		@click="open"
 	>

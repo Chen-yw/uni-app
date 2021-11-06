@@ -143,33 +143,12 @@
 				scrollInto: "", // 根据id滚动定位
 				tabIndex: 0, // 活跃项
 				tabBars: [
-					{
-						name: '关注',
-					},
-					{
-						name: '推荐',
-					},
-					{
-						name: '体育',
-					},
-					{
-						name: '热点',
-					},
-					{
-						name: '财经',
-					},
-					{
-						name: '娱乐',
-					},
-					{
-						name: '军事',
-					},
-					{
-						name: '历史',
-					},
-					{
-						name: '本地',
-					},
+					{ name: '关注' },
+					{ name: '推荐' },
+					{ name: '体育' },
+					{ name: '热点' },
+					{ name: '财经' },
+					{ name: '娱乐' },
 				],
 				newslist: []
 			}
@@ -186,11 +165,17 @@
 		},
 		// 监听导航按钮的点击事件
 		onNavigationBarButtonTap() {
-			uni.navigateTo({
+			this.navigateTo({
 				url: '../add-input/add-input'
 			})
+			// uni.navigateTo({
+			// 	url: '../add-input/add-input'
+			// })
 		},
 		onLoad() {
+			// console.log(this.$C.webUrl);
+			// this.$store.commit('changeLoginStatus',{num: 123});
+			console.log(this.$store.state.loginStatus);
 			uni.getSystemInfo({
 				success: res => {
 					// px => rpx
@@ -210,6 +195,8 @@
 		methods: {
 			// 获取数据
 			getData() {
+				// 获取所有分类
+				
 				var arr = [];
 				for (let i = 0; i < this.tabBars.length; i++) {
 					let obj = {

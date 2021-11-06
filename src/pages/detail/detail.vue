@@ -15,14 +15,48 @@
 			</view>
 		</commonList>
 		
+		<!-- 评论 -->
+		<divider></divider>
+		<view class="p-2 font-md font-weight-bold">
+			最新评论 {{comments.length}}
+		</view>
+		<view class="px-2">
+			<view class="uni-comment-list"
+			v-for="(item,index) in comments"
+			:key="index">
+				<!-- <view v-if="item.fid" style="width: 60rpx;"></view> -->
+				<view v-if="item.fid"></view>
+				<view class="flex w-100"
+				:class="item.fid ? 'bg-light rounded p-2' : ''">
+					<view class="uni-comment-face"><image :src="item.userpic"></image></view>
+					<view class="uni-comment-body">
+						<view class="uni-comment-top">
+							<text>{{item.username}}</text>
+						</view>
+						<view class="uni-comment-content"
+						@click="reply(item.id)">{{item.data}}</view>
+						<view class="uni-comment-date">
+							<view>{{item.time}}</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+
+		<!-- 占位 -->
+		<view style="height: 100rpx;"></view>
 		<!-- 底部操作条 -->
 		<bottomInput @submit="submit"/>
+		
+		<!-- 底部弹出分享 -->
+		<moreShare ref="moreshare" :providerList="providerList"></moreShare>
 	</view>
 </template>
 
 <script>
 	import commonList from "@/components/common/common-list.vue"
 	import bottomInput from '@/components/common/bottom-input.vue'
+	import moreShare from '@/components/common/more-share.vue'
 	export default {
 		data() {
 			return {
@@ -46,12 +80,30 @@
 						{url: "https://tangzhe123-com.oss-cn-shenzhen.aliyuncs.com/Appstatic/qsbk/demo/datapic/4.jpg"},
 						{url: "https://tangzhe123-com.oss-cn-shenzhen.aliyuncs.com/Appstatic/qsbk/demo/datapic/5.jpg"}
 					]
-				}
+				},
+				comments: [
+					{
+						id: 1155,
+						fid: 1,
+						username: "小可爱",
+						userpic: "/static/demo/datapic/11.jpg",
+						data: "啦啦啦",
+						time: '2021-12-10 14:20:01'
+					}
+				],
+				providerList: [
+					{icon: "icon-weixin",color: "bg-success", name: "微信"},
+					{icon: "icon-huati",color: "bg-dark", name: "朋友圈"},
+					{icon: "icon-xinlangweibo",color: "bg-danger", name: "新浪微博"},
+					{icon: "icon-QQ",color: "bg-primary", name: "QQ好友"},
+				]
+				
 			}
 		},
 		components: {
 			commonList,
-			bottomInput
+			bottomInput,
+			moreShare
 		},
 		computed: {
 			imageList() {
@@ -65,6 +117,18 @@
 				// this.info = JSON.parse(e.detail)
 			}
 		},
+		// 监听原生导航栏按钮
+		onNavigationBarButtonTap() {
+			this.$refs.moreshare.open();
+		}, 
+		// 监听返回按钮
+		onBackPress() { 
+			this.$refs.moreshare.close();
+			uni.navigateBack({
+				delta: 1
+			})
+		},
+		
 		methods: {
 			__init(data) {
 				// 修改标题
@@ -126,7 +190,19 @@
 					current: index,
 					urls: this.imageList,
 				});
-			}
+			},
+			
+			// 提交评论
+			submit(e) {
+				console.log(e);
+			},
+			
+			// 回复评论
+			reply(id){
+				this.reply_id = id
+				this.focus = true
+			},
+		
 		}
 	}
 </script>

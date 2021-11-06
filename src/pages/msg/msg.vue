@@ -15,7 +15,7 @@
 		<!-- 弹出层 -->
 		<uni-popup ref="popup" type="top">
 			<view 
-				class="flex justify-center align-center bg-white py-2 font-md border-bottom"
+				class="flex justify-center align-center py-2 font-md border-bottom"
 				hover-class="bg-light"
 				@click="popupEvent('friend')"
 			>
@@ -23,7 +23,7 @@
 				<text class="iconfont icon-sousuo mr-2"/>添加好友
 			</view>
 			<view 
-				class="flex justify-center align-center bg-white py-2 font-md " 
+				class="flex justify-center align-center py-2 font-md " 
 				hover-class="bg-light"
 				@click="popupEvent('clear')"
 			>

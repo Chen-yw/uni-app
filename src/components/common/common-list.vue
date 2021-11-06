@@ -1,5 +1,5 @@
 <template>
-	<view class="p-2" @click="openDetail">
+	<view class="p-2 animated fast fadeIn" @click="openDetail">
 		<!-- 头像昵称 | 关注按钮 -->
 		<view class="flex justify-between">
 			<view class="flex align-center">
@@ -9,7 +9,7 @@
 					:src="item.userpic" 
 					style="width: 65rpx;height: 65rpx;"
 					lazy-load
-					@click="openSpace"
+					@click.stop="openSpace"
 				/>
 				<!-- 昵称发布时间 -->
 				<view>
@@ -122,37 +122,48 @@
 		methods: {
 			// 打开个人空间
 			openSpace() {
-				console.log('打开个人空间');
+				uni.navigateTo({
+					url: '/pages/user-space/user-space',
+				});
 			},
 			
 			// 关注
 			follow() {
-				console.log(!this.item.isFollow);
-				// 通知父组件
-				this.$emit('follow', {index: this.index, indey: this.indey});
+				// console.log(!this.item.isFollow);
+				// 验证登录状态
+				this.checkAuth(() => {
+					// 通知父组件
+					this.$emit('follow', {index: this.index, indey: this.indey});
+				})
 			},
 			
 			// 进入详情页
 			openDetail() {
-				// 处于详情页中
-				if (this.isdetail) return;
-				uni.navigateTo({
-					url: '../../pages/detail/detail?detail=' + JSON.stringify(this.item),
-				});
+					// 处于详情页中
+					if (this.isdetail) return;
+					uni.navigateTo({
+						url: '../../pages/detail/detail?detail=' + JSON.stringify(this.item),
+					});
 			},
 			
 			// 顶踩操作
 			doSupport(type) {
-				// 通知父组件
-				this.$emit('doSupport', {type: type, index: this.index, indey: this.indey});
+				// 验证登录状态
+				this.checkAuth(() => {
+					// 通知父组件
+					this.$emit('doSupport', {type: type, index: this.index, indey: this.indey});
+				})
 			},
 			
 			// 评论
 			doComment() {
-				if (!this.isdetail) {
-					return this.openDetail();
-				}
-				this.$emit('doComment');
+				this.checkAuth(() => {
+					if (!this.isdetail) {
+						return this.openDetail();
+					}
+					// 通知父组件
+					this.$emit('doComment');
+				})
 			},
 			// 分享
 			doShare() {
